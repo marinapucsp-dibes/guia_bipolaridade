@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transtorno Bipolar Tipo 2 — Guia e Registro Pessoal</title>
+<style>
+  :root{
+    --roxo:#5B3A8E;
+    --roxo-claro:#F1ECFA;
+    --verde:#2E7D6B;
+    --verde-claro:#EAF4F1;
+    --laranja:#B3541E;
+    --laranja-claro:#FBEFE3;
+    --texto:#2B2B2B;
+    --texto-suave:#5b5b5b;
+    --borda:#e2ddef;
+    --bg:#faf9fc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:"Segoe UI", Calibri, Arial, sans-serif;
+    color:var(--texto); background:var(--bg); line-height:1.55;
+  }
+  header{
+    background:linear-gradient(135deg,var(--roxo),#7a53b8);
+    color:#fff; padding:28px 20px 22px; text-align:center;
+    position:sticky; top:0; z-index:20; box-shadow:0 2px 10px rgba(0,0,0,.12);
+  }
+  header h1{margin:0; font-size:1.5rem;}
+  header p{margin:6px 0 0; opacity:.92; font-size:.95rem;}
+  nav{
+    display:flex; justify-content:center; gap:8px; flex-wrap:wrap;
+    margin-top:16px;
+  }
+  nav button{
+    background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.5);
+    color:#fff; padding:8px 16px; border-radius:20px; cursor:pointer;
+    font-size:.9rem; transition:.15s;
+  }
+  nav button:hover{background:rgba(255,255,255,.3);}
+  nav button.active{background:#fff; color:var(--roxo); font-weight:600;}
+
+  main{max-width:860px; margin:0 auto; padding:24px 18px 80px;}
+  .view{display:none;}
+  .view.active{display:block; animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+
+  .card{
+    background:#fff; border:1px solid var(--borda); border-radius:14px;
+    padding:22px 24px; margin-bottom:20px; box-shadow:0 1px 4px rgba(60,40,90,.05);
+  }
+  .aviso{
+    background:var(--roxo-claro); border-left:5px solid var(--roxo);
+    border-radius:10px; padding:16px 20px; margin-bottom:26px;
+  }
+  .aviso strong{color:var(--roxo);}
+
+  h2{color:var(--roxo); font-size:1.3rem; margin-top:0; display:flex; align-items:center; gap:10px; justify-content:space-between;}
+  h2.verde{color:var(--verde);}
+  h2.laranja{color:var(--laranja);}
+  h3{color:var(--roxo); font-size:1.05rem;}
+  p{color:var(--texto); margin:10px 0;}
+  ul{padding-left:22px;}
+  li{margin-bottom:6px;}
+
+  .callout{
+    border-radius:10px; padding:14px 18px; margin:14px 0;
+    border:1px solid transparent;
+  }
+  .callout.roxo{background:var(--roxo-claro); border-color:#d9cdf0;}
+  .callout.verde{background:var(--verde-claro); border-color:#cdeae2;}
+  .callout.laranja{background:var(--laranja-claro); border-color:#f0d3b8;}
+  .callout .titulo{font-weight:700; margin-bottom:6px; display:block;}
+  .callout.roxo .titulo{color:var(--roxo);}
+  .callout.verde .titulo{color:var(--verde);}
+  .callout.laranja .titulo{color:var(--laranja);}
+
+  .comment-btn{
+    font-size:.72rem; background:#fff; border:1px solid var(--borda);
+    color:var(--texto-suave); padding:4px 10px; border-radius:14px; cursor:pointer;
+    white-space:nowrap;
+  }
+  .comment-btn:hover{background:var(--roxo-claro); color:var(--roxo); border-color:var(--roxo);}
+  .comment-box{display:none; margin-top:10px;}
+  .comment-box.open{display:block;}
+  .comment-box textarea{
+    width:100%; min-height:70px; border:1px solid var(--borda); border-radius:8px;
+    padding:10px; font-family:inherit; font-size:.9rem; resize:vertical;
+  }
+  .comment-box .actions{margin-top:6px; display:flex; gap:8px;}
+  .comment-box button{
+    font-size:.8rem; border:none; border-radius:6px; padding:6px 12px; cursor:pointer;
+  }
+  .comment-box .salvar{background:var(--roxo); color:#fff;}
+  .comment-box .apagar{background:#eee; color:#555;}
+  .comment-shown{
+    margin-top:10px; background:#fffbe8; border:1px dashed #e0c85a;
+    border-radius:8px; padding:10px 14px; font-size:.9rem; white-space:pre-wrap;
+  }
+  .comment-shown b{color:#8a6d00;}
+
+  /* Histórico */
+  .form-grid{display:grid; grid-template-columns:110px 1fr 130px; gap:10px; margin-bottom:10px;}
+  .form-grid.full{grid-template-columns:1fr;}
+  label{font-size:.8rem; color:var(--texto-suave); display:block; margin-bottom:4px;}
+  input[type=text], input[type=number], textarea, select{
+    width:100%; padding:9px 10px; border:1px solid var(--borda); border-radius:8px;
+    font-family:inherit; font-size:.92rem;
+  }
+  textarea{min-height:60px; resize:vertical;}
+  .btn{
+    background:var(--roxo); color:#fff; border:none; padding:10px 18px;
+    border-radius:8px; cursor:pointer; font-size:.92rem; font-weight:600;
+  }
+  .btn:hover{opacity:.9;}
+  .btn.verde{background:var(--verde);}
+  .btn.laranja{background:var(--laranja);}
+  .btn.outline{background:#fff; color:var(--roxo); border:1px solid var(--roxo);}
+  .btn.small{padding:5px 10px; font-size:.78rem; font-weight:500;}
+
+  table{width:100%; border-collapse:collapse; margin-top:14px; font-size:.9rem;}
+  th, td{border:1px solid var(--borda); padding:8px 10px; text-align:left; vertical-align:top;}
+  th{background:var(--roxo); color:#fff; font-weight:600;}
+  tr.depressao-row th, .th-laranja{background:var(--laranja) !important;}
+  tbody tr:nth-child(even){background:#faf8ff;}
+  td.acoes{white-space:nowrap; text-align:center;}
+  .empty-msg{color:var(--texto-suave); font-style:italic; padding:14px 0;}
+
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 6px;}
+  .badge{
+    display:inline-block; background:var(--roxo-claro); color:var(--roxo);
+    border-radius:12px; padding:2px 10px; font-size:.75rem; font-weight:600;
+  }
+  .badge.laranja{background:var(--laranja-claro); color:var(--laranja);}
+
+  footer{text-align:center; padding:24px; color:var(--texto-suave); font-size:.8rem;}
+
+  /* RELATÓRIO / IMPRESSÃO */
+  #relatorioConteudo h2{border-bottom:2px solid var(--roxo); padding-bottom:6px;}
+  #relatorioConteudo .sec{margin-bottom:26px;}
+
+  @media print{
+    header, nav, .no-print{display:none !important;}
+    body{background:#fff;}
+    main{max-width:100%; padding:0;}
+    .card{box-shadow:none; border:1px solid #ccc;}
+  }
+
+  @media (max-width:600px){
+    .form-grid{grid-template-columns:1fr;}
+    header h1{font-size:1.2rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="no-print">
+  <h1>🧭 Entendendo o Transtorno Bipolar Tipo 2</h1>
+  <p>Guia acessível + registro pessoal de histórico, para levar à consulta psiquiátrica</p>
+  <nav>
+    <button data-view="guia" class="active">📖 Guia</button>
+    <button data-view="historico">📝 Meu Histórico</button>
+    <button data-view="relatorio">📄 Relatório</button>
+    <button data-view="sync">🔄 Sincronizar</button>
+    <button data-view="sobre">ℹ️ Sobre / Backup</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ================= VIEW: GUIA ================= -->
+  <section id="view-guia" class="view active">
+
+    <div class="aviso">
+      <strong>Este guia não substitui uma avaliação profissional.</strong> As informações aqui são educativas, escritas em linguagem simples para ajudar você e sua família a entender melhor o transtorno bipolar tipo 2. Apenas um(a) médico(a) psiquiatra pode fazer o diagnóstico. Use a aba <b>Meu Histórico</b> para organizar lembranças e levar para a consulta.
+    </div>
+
+    <article class="card" data-comment-id="s1">
+      <h2>O que é o Transtorno Bipolar Tipo 2?
+        <button class="comment-btn no-print" onclick="toggleComment('s1')">💬 comentar</button>
+      </h2>
+      <p>O Transtorno Bipolar Tipo 2 (TB2) é uma condição de saúde mental que afeta o humor, a energia e a capacidade de funcionar no dia a dia. Faz parte do grupo dos transtornos bipolares, que também inclui o Transtorno Bipolar Tipo 1.</p>
+      <p><b>Característica central do TB2:</b> a pessoa alterna entre episódios de <b>depressão maior</b> e episódios de <b>hipomania</b> — nunca chegando a ter um episódio de mania completa (o que definiria o Tipo 1).</p>
+      <p>Isso não significa que o TB2 seja "mais leve". Os episódios depressivos costumam ser frequentes e intensos, e a hipomania muitas vezes passa despercebida — o que torna o diagnóstico mais demorado.</p>
+      <div class="callout verde">
+        <span class="titulo">Por que o diagnóstico demora tanto?</span>
+        A maioria das pessoas com TB2 procura ajuda durante um episódio depressivo. A hipomania, por não causar prejuízos tão visíveis quanto a mania, muitas vezes não é lembrada nem vista como "problema" — sendo comum o quadro ser tratado inicialmente como depressão comum. Por isso, registrar o histórico de energia alta é tão valioso.
+      </div>
+      <div class="comment-box" id="box-s1">
+        <label>Seu comentário / observação sobre este trecho:</label>
+        <textarea id="ta-s1" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s1')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s1')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s1" style="display:none"></div>
+    </article>
+
+    <article class="card" data-comment-id="s2">
+      <h2 class="verde">O que é a Hipomania?
+        <button class="comment-btn no-print" onclick="toggleComment('s2')">💬 comentar</button>
+      </h2>
+      <p>É um período nitidamente diferente do jeito habitual da pessoa, com humor elevado, expansivo ou irritado, e aumento de energia ou atividade, durando pelo menos <b>4 dias seguidos</b>, na maior parte do dia.</p>
+      <p>Diferente da mania, a hipomania não causa prejuízo grave no trabalho ou na vida social, não exige internação e não vem com sintomas psicóticos — mas é perceptível para quem convive com a pessoa.</p>
+      <p><b>Sinais que podem indicar hipomania</b> (geralmente vários ao mesmo tempo, de forma clara e diferente do habitual):</p>
+      <ul>
+        <li>Autoestima elevada ou sensação de grandiosidade</li>
+        <li>Menor necessidade de sono (sentir-se descansado(a) com poucas horas)</li>
+        <li>Mais falante que o normal, ou necessidade de continuar falando</li>
+        <li>Pensamentos acelerados, ideias "correndo" na cabeça</li>
+        <li>Distração fácil, dificuldade de manter o foco</li>
+        <li>Aumento da atividade dirigida a metas (trabalho, projetos, vida social) ou agitação</li>
+        <li>Envolvimento excessivo em atividades de risco (gastos impulsivos, decisões precipitadas, comportamento de risco, dirigir de forma imprudente)</li>
+      </ul>
+      <div class="callout laranja">
+        <span class="titulo">Atenção</span>
+        Muita gente descreve a hipomania como "me sentindo ótimo(a)", produtivo(a) e criativo(a) — por isso raramente é vista como algo preocupante. Às vezes só se reconhece esses períodos olhando para trás. Daí a importância do registro cuidadoso.
+      </div>
+      <div class="comment-box" id="box-s2">
+        <textarea id="ta-s2" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s2')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s2')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s2" style="display:none"></div>
+    </article>
+
+    <article class="card" data-comment-id="s3">
+      <h2 class="laranja">O que é o Episódio Depressivo Maior?
+        <button class="comment-btn no-print" onclick="toggleComment('s3')">💬 comentar</button>
+      </h2>
+      <p>É um período de pelo menos <b>duas semanas</b> com humor deprimido e/ou perda de interesse ou prazer nas atividades, presente na maior parte do dia, quase todos os dias, representando uma mudança em relação ao funcionamento anterior.</p>
+      <p><b>Sinais que podem indicar depressão</b> (geralmente vários, presentes na maior parte do tempo):</p>
+      <ul>
+        <li>Humor triste, vazio ou desesperançoso na maior parte do dia</li>
+        <li>Perda de interesse ou prazer em quase todas as atividades</li>
+        <li>Alteração importante do apetite ou do peso</li>
+        <li>Dormir muito mais ou muito menos que o habitual</li>
+        <li>Lentidão ou agitação perceptível pelos outros</li>
+        <li>Fadiga ou perda de energia quase todos os dias</li>
+        <li>Sentimentos de inutilidade ou culpa excessiva</li>
+        <li>Dificuldade de concentração ou de tomar decisões</li>
+        <li>Pensamentos de morte, ideação suicida, plano ou tentativa</li>
+      </ul>
+      <div class="callout laranja">
+        <span class="titulo">Se houver pensamentos de morte ou de se machucar</span>
+        Isso é uma emergência de saúde. Procure imediatamente um serviço de emergência, o CAPS da sua região, ou ligue para o <b>CVV — 188</b> (24h, gratuito, sigiloso, também por chat em <a href="https://www.cvv.org.br" target="_blank">www.cvv.org.br</a>). Se você é familiar e percebe esses sinais em quem ama, não fique em silêncio: busque ajuda profissional junto com a pessoa.
+      </div>
+      <div class="comment-box" id="box-s3">
+        <textarea id="ta-s3" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s3')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s3')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s3" style="display:none"></div>
+    </article>
+
+    <article class="card" data-comment-id="s4">
+      <h2>Bipolar Tipo 1 x Tipo 2: qual a diferença?
+        <button class="comment-btn no-print" onclick="toggleComment('s4')">💬 comentar</button>
+      </h2>
+      <ul>
+        <li><b>Tipo 1:</b> pelo menos um episódio de <b>mania completa</b> (dura 7 dias ou mais, ou exige internação; pode causar prejuízo grave e, às vezes, sintomas psicóticos).</li>
+        <li><b>Tipo 2:</b> episódios de <b>hipomania</b> (mais leve e curta, sem prejuízo grave nem psicose) intercalados com episódios de <b>depressão maior</b>, que costumam ser frequentes e predominantes.</li>
+      </ul>
+      <p>Uma pessoa com TB2 nunca teve um episódio de mania completa. Se isso ocorrer, o diagnóstico passa a ser Tipo 1.</p>
+      <div class="comment-box" id="box-s4">
+        <textarea id="ta-s4" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s4')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s4')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s4" style="display:none"></div>
+    </article>
+
+    <article class="card" data-comment-id="s5">
+      <h2>Causas e fatores de risco
+        <button class="comment-btn no-print" onclick="toggleComment('s5')">💬 comentar</button>
+      </h2>
+      <p>O TB2 resulta de uma combinação de fatores, e não de uma causa única:</p>
+      <ul>
+        <li>Genética: histórico familiar de transtorno bipolar ou depressão aumenta o risco</li>
+        <li>Funcionamento cerebral e neuroquímico (regulação de neurotransmissores)</li>
+        <li>Fatores ambientais e estressores de vida, especialmente na adolescência</li>
+        <li>Alterações no sono e nos ritmos biológicos, que podem disparar episódios</li>
+      </ul>
+      <p>Nada disso é "culpa" da pessoa ou da família. Entender as causas ajuda a reduzir o estigma e a focar no que é possível: tratamento e manejo ao longo da vida.</p>
+      <div class="comment-box" id="box-s5">
+        <textarea id="ta-s5" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s5')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s5')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s5" style="display:none"></div>
+    </article>
+
+    <article class="card" data-comment-id="s6">
+      <h2>Como é o tratamento?
+        <button class="comment-btn no-print" onclick="toggleComment('s6')">💬 comentar</button>
+      </h2>
+      <p>O tratamento é individualizado e definido pelo(a) psiquiatra, mas costuma combinar:</p>
+      <ul>
+        <li>Estabilizadores de humor e/ou outros medicamentos, conforme avaliação médica</li>
+        <li>Psicoterapia (ex: terapia cognitivo-comportamental ou focada na família)</li>
+        <li>Psicoeducação — entender a própria condição, como você está fazendo agora</li>
+        <li>Rotina regular de sono, alimentação e atividades</li>
+        <li>Acompanhamento do humor ao longo do tempo</li>
+      </ul>
+      <div class="callout roxo">
+        <span class="titulo">Sobre antidepressivos</span>
+        Em pessoas com transtorno bipolar, o uso de antidepressivos sem um estabilizador de humor pode, em alguns casos, provocar uma "virada" para hipomania ou piorar a ciclagem de humor. Qualquer decisão sobre medicação deve ser feita com acompanhamento psiquiátrico, nunca por conta própria.
+      </div>
+      <div class="comment-box" id="box-s6">
+        <textarea id="ta-s6" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s6')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s6')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s6" style="display:none"></div>
+    </article>
+
+    <article class="card" data-comment-id="s7">
+      <h2 class="verde">Como a família pode ajudar
+        <button class="comment-btn no-print" onclick="toggleComment('s7')">💬 comentar</button>
+      </h2>
+      <ul>
+        <li>Aprenda sobre a condição — isso reduz o julgamento e aumenta a empatia</li>
+        <li>Observe (sem vigiar de forma invasiva) padrões de sono, energia e humor</li>
+        <li>Ajude a manter rotina: horários de sono, refeições e compromissos são protetores</li>
+        <li>Evite frases como "é frescura" ou "força a barra" — é uma condição médica</li>
+        <li>Incentive a continuidade do tratamento, mesmo nos momentos de bem-estar</li>
+        <li>Tenha um plano combinado para momentos de crise</li>
+        <li>Cuide também da sua própria saúde emocional</li>
+      </ul>
+      <div class="comment-box" id="box-s7">
+        <textarea id="ta-s7" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s7')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s7')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s7" style="display:none"></div>
+    </article>
+
+    <article class="card" data-comment-id="s8">
+      <h2 class="laranja">Sinais de alerta para buscar ajuda com urgência
+        <button class="comment-btn no-print" onclick="toggleComment('s8')">💬 comentar</button>
+      </h2>
+      <ul>
+        <li>Pensamentos, comentários ou planos sobre morte ou suicídio</li>
+        <li>Comportamento de risco grave (financeiro, condução perigosa, decisões impulsivas de alto impacto)</li>
+        <li>Sinais de psicose: crenças fora da realidade, ouvir ou ver coisas que outros não percebem</li>
+        <li>Incapacidade de cuidar de si mesmo(a) (alimentação, higiene, segurança básica)</li>
+      </ul>
+      <div class="callout laranja">
+        <span class="titulo">Em caso de emergência</span>
+        CVV — Centro de Valorização da Vida: <b>188</b> (24h, gratuito, sigiloso) ou <a href="https://www.cvv.org.br" target="_blank">www.cvv.org.br</a><br>
+        SAMU: <b>192</b> — ou procure o pronto-socorro / CAPS mais próximo.
+      </div>
+      <div class="comment-box" id="box-s8">
+        <textarea id="ta-s8" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s8')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s8')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s8" style="display:none"></div>
+    </article>
+
+    <article class="card" data-comment-id="s9">
+      <h2>Dicas para o dia a dia
+        <button class="comment-btn no-print" onclick="toggleComment('s9')">💬 comentar</button>
+      </h2>
+      <ul>
+        <li>Durma e acorde em horários regulares, todos os dias</li>
+        <li>Evite álcool e drogas recreativas</li>
+        <li>Mantenha contato regular com sua equipe de tratamento, mesmo bem</li>
+        <li>Use um diário/aplicativo de humor para perceber padrões cedo</li>
+        <li>Identifique, com ajuda do(a) terapeuta, seus gatilhos e primeiros sinais pessoais</li>
+      </ul>
+      <div class="comment-box" id="box-s9">
+        <textarea id="ta-s9" placeholder="Escreva aqui..."></textarea>
+        <div class="actions">
+          <button class="salvar" onclick="saveComment('s9')">Salvar</button>
+          <button class="apagar" onclick="clearComment('s9')">Apagar</button>
+        </div>
+      </div>
+      <div class="comment-shown" id="shown-s9" style="display:none"></div>
+    </article>
+
+    <div class="callout roxo no-print" style="text-align:center;">
+      Pronto para registrar suas próprias lembranças? Vá até a aba <b>📝 Meu Histórico</b>.
+    </div>
+  </section>
+
+  <!-- ================= VIEW: HISTÓRICO ================= -->
+  <section id="view-historico" class="view">
+
+    <div class="card">
+      <h2 class="verde">📈 Possíveis episódios de HIPOMANIA</h2>
+      <p style="font-size:.9rem; color:var(--texto-suave)">Períodos de energia muito alta, pouco sono sem cansaço, euforia, irritabilidade incomum, impulsividade, ideias aceleradas, gastos ou decisões fora do padrão.</p>
+      <div class="form-grid">
+        <div>
+          <label>Ano (aprox.)</label>
+          <input type="text" id="hip-ano" placeholder="ex: 2019">
+        </div>
+        <div>
+          <label>O que aconteceu</label>
+          <input type="text" id="hip-situacao" placeholder="Descreva a situação, contexto, comportamento notado...">
+        </div>
+        <div>
+          <label>Duração aprox.</label>
+          <input type="text" id="hip-duracao" placeholder="ex: 2 semanas">
+        </div>
+      </div>
+      <div class="form-grid full">
+        <div>
+          <label>Comentários (opcional)</label>
+          <textarea id="hip-comentario" placeholder="Observações extras, o que as pessoas ao redor notaram, dúvidas para o(a) psiquiatra..."></textarea>
+        </div>
+      </div>
+      <button class="btn verde" onclick="addEntry('hipomania')">+ Adicionar registro</button>
+
+      <div id="hip-tabela-wrap"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="laranja">📉 Possíveis episódios de DEPRESSÃO</h2>
+      <p style="font-size:.9rem; color:var(--texto-suave)">Períodos de tristeza persistente, perda de interesse, alterações de sono/apetite, cansaço, dificuldade de concentração, pensamentos negativos ou de morte.</p>
+      <div class="form-grid">
+        <div>
+          <label>Ano (aprox.)</label>
+          <input type="text" id="dep-ano" placeholder="ex: 2020">
+        </div>
+        <div>
+          <label>O que aconteceu</label>
+          <input type="text" id="dep-situacao" placeholder="Descreva a situação, contexto, comportamento notado...">
+        </div>
+        <div>
+          <label>Duração aprox.</label>
+          <input type="text" id="dep-duracao" placeholder="ex: 3 meses">
+        </div>
+      </div>
+      <div class="form-grid full">
+        <div>
+          <label>Comentários (opcional)</label>
+          <textarea id="dep-comentario" placeholder="Observações extras, dúvidas para o(a) psiquiatra..."></textarea>
+        </div>
+      </div>
+      <button class="btn laranja" onclick="addEntry('depressao')">+ Adicionar registro</button>
+
+      <div id="dep-tabela-wrap"></div>
+    </div>
+
+  </section>
+
+  <!-- ================= VIEW: RELATÓRIO ================= -->
+  <section id="view-relatorio" class="view">
+    <div class="card no-print">
+      <h2>📄 Relatório para levar à consulta</h2>
+      <p>Este relatório reúne, em ordem cronológica, todos os registros de hipomania e depressão que você preencheu, além dos comentários feitos no guia.</p>
+      <div class="toolbar">
+        <button class="btn" onclick="window.print()">🖨️ Imprimir / Salvar como PDF</button>
+        <button class="btn outline" onclick="exportarJSON()">⬇️ Baixar backup (.json)</button>
+      </div>
+    </div>
+
+    <div class="card" id="relatorioConteudo"></div>
+  </section>
+
+  <!-- ================= VIEW: SINCRONIZAR ================= -->
+  <section id="view-sync" class="view">
+    <div class="card">
+      <h2>🔄 Sincronizar entre celular e computador</h2>
+      <p>Isso salva seus registros dentro de um arquivo <code>data.json</code> no <b>seu próprio repositório do GitHub</b>, usando um token pessoal. Assim você preenche no celular, envia, e depois busca no computador (ou vice-versa).</p>
+
+      <div class="callout roxo">
+        <span class="titulo">Como criar o token (uma vez só)</span>
+        1. No GitHub, acesse <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</b>.<br>
+        2. Em "Repository access", escolha <b>Only select repositories</b> e selecione o repositório deste guia.<br>
+        3. Em "Permissions", dê permissão de <b>Contents: Read and write</b>.<br>
+        4. Gere e copie o token (começa com <code>github_pat_...</code>) — cole no campo abaixo.<br>
+        5. Guarde-o em um local seguro; se perder o acesso, é só gerar outro e revogar o antigo.
+      </div>
+
+      <div class="form-grid full">
+        <div>
+          <label>Usuário do GitHub (ex: mariasilva)</label>
+          <input type="text" id="gh-user" placeholder="seu usuário">
+        </div>
+      </div>
+      <div class="form-grid full">
+        <div>
+          <label>Nome do repositório (ex: meu-guia-bipolar)</label>
+          <input type="text" id="gh-repo" placeholder="nome do repositório">
+        </div>
+      </div>
+      <div class="form-grid full">
+        <div>
+          <label>Caminho do arquivo de dados (deixe como está se não souber)</label>
+          <input type="text" id="gh-path" value="data.json">
+        </div>
+      </div>
+      <div class="form-grid full">
+        <div>
+          <label>Token pessoal (fine-grained, com acesso a Contents)</label>
+          <input type="password" id="gh-token" placeholder="github_pat_...">
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="btn outline" onclick="saveSyncConfig()">💾 Salvar configuração neste aparelho</button>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn verde" onclick="pushToGithub()">⬆️ Enviar meus registros para o GitHub</button>
+        <button class="btn" onclick="pullFromGithub()">⬇️ Buscar registros do GitHub</button>
+      </div>
+      <p id="sync-status" style="font-size:.88rem; color:var(--texto-suave); min-height:1.2em;"></p>
+
+      <div class="callout laranja">
+        <span class="titulo">Importante sobre segurança</span>
+        O token fica salvo apenas no armazenamento local deste navegador/aparelho — ele nunca é enviado a nenhum servidor além do próprio GitHub. Ainda assim, gere o token com o menor acesso possível (só esse repositório, só leitura/escrita de conteúdo) e não compartilhe este link com o token já preenchido. Você precisa repetir esta configuração em cada novo aparelho/navegador em que quiser sincronizar.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW: SOBRE ================= -->
+  <section id="view-sobre" class="view">
+    <div class="card">
+      <h2>ℹ️ Sobre esta ferramenta</h2>
+      <p>Este site guarda seus registros <b>localmente no seu navegador</b> (usando <code>localStorage</code>), no dispositivo em que você o está usando. Nada é enviado para nenhum servidor.</p>
+      <p>Isso quer dizer:</p>
+      <ul>
+        <li>Se você trocar de navegador, computador ou celular, os dados <b>não aparecem automaticamente</b> no novo dispositivo.</li>
+        <li>Se limpar os dados de navegação/cache do navegador, os registros podem ser apagados.</li>
+        <li>Por isso, <b>faça backups regularmente</b> usando o botão abaixo, e guarde o arquivo <code>.json</code> em um local seguro (ex: Google Drive, e-mail para você mesmo(a)).</li>
+      </ul>
+      <div class="toolbar">
+        <button class="btn" onclick="exportarJSON()">⬇️ Baixar backup completo (.json)</button>
+        <label class="btn outline" style="cursor:pointer;">
+          ⬆️ Importar backup (.json)
+          <input type="file" id="importFile" accept=".json" style="display:none" onchange="importarJSON(event)">
+        </label>
+      </div>
+      <p style="margin-top:18px; font-size:.85rem; color:var(--texto-suave)">
+        Conteúdo educativo elaborado para apoiar a conversa com sua equipe de saúde mental. Não substitui avaliação, diagnóstico ou orientação de um(a) profissional de saúde. Este material aborda pensamentos de morte/suicídio em um contexto informativo — se você estiver passando por sofrimento neste momento, procure o CVV pelo telefone <b>188</b> (24h, gratuito) ou <a href="https://www.cvv.org.br" target="_blank">www.cvv.org.br</a>.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="no-print">Feito para uso pessoal — seus dados ficam apenas no seu navegador.</footer>
+
+<script>
+// ---------- Navegação ----------
+const views = ["guia","historico","relatorio","sync","sobre"];
+document.querySelectorAll("nav button").forEach(btn=>{
+  btn.addEventListener("click", ()=> switchView(btn.dataset.view));
+});
+function switchView(name){
+  views.forEach(v=>{
+    document.getElementById("view-"+v).classList.toggle("active", v===name);
+  });
+  document.querySelectorAll("nav button").forEach(b=>{
+    b.classList.toggle("active", b.dataset.view===name);
+  });
+  if(name==="relatorio") renderRelatorio();
+  if(name==="sync") loadSyncConfig();
+}
+
+// ---------- Comentários no texto ----------
+function commentKey(id){ return "bipolar_comment_" + id; }
+function toggleComment(id){
+  const box = document.getElementById("box-"+id);
+  box.classList.toggle("open");
+  if(box.classList.contains("open")){
+    document.getElementById("ta-"+id).value = localStorage.getItem(commentKey(id)) || "";
+  }
+}
+function saveComment(id){
+  const val = document.getElementById("ta-"+id).value.trim();
+  if(val){ localStorage.setItem(commentKey(id), val); }
+  else { localStorage.removeItem(commentKey(id)); }
+  renderStoredComment(id);
+  document.getElementById("box-"+id).classList.remove("open");
+}
+function clearComment(id){
+  localStorage.removeItem(commentKey(id));
+  document.getElementById("ta-"+id).value = "";
+  renderStoredComment(id);
+  document.getElementById("box-"+id).classList.remove("open");
+}
+function renderStoredComment(id){
+  const shown = document.getElementById("shown-"+id);
+  const val = localStorage.getItem(commentKey(id));
+  if(val){
+    shown.style.display = "block";
+    shown.innerHTML = "<b>Seu comentário:</b> " + escapeHtml(val).replace(/\n/g,"<br>");
+  } else {
+    shown.style.display = "none";
+    shown.innerHTML = "";
+  }
+}
+function initComments(){
+  document.querySelectorAll("[data-comment-id]").forEach(el=>{
+    renderStoredComment(el.dataset.commentId);
+  });
+}
+
+// ---------- Histórico (hipomania / depressão) ----------
+function storageKey(tipo){ return "bipolar_registros_" + tipo; }
+function getEntries(tipo){
+  try{ return JSON.parse(localStorage.getItem(storageKey(tipo)) || "[]"); }
+  catch(e){ return []; }
+}
+function setEntries(tipo, arr){
+  localStorage.setItem(storageKey(tipo), JSON.stringify(arr));
+}
+function addEntry(tipo){
+  const prefix = tipo==="hipomania" ? "hip" : "dep";
+  const ano = document.getElementById(prefix+"-ano").value.trim();
+  const situacao = document.getElementById(prefix+"-situacao").value.trim();
+  const duracao = document.getElementById(prefix+"-duracao").value.trim();
+  const comentario = document.getElementById(prefix+"-comentario").value.trim();
+  if(!situacao){
+    alert("Descreva o que aconteceu antes de adicionar.");
+    return;
+  }
+  const arr = getEntries(tipo);
+  arr.push({ id: Date.now(), ano, situacao, duracao, comentario });
+  setEntries(tipo, arr);
+  document.getElementById(prefix+"-ano").value = "";
+  document.getElementById(prefix+"-situacao").value = "";
+  document.getElementById(prefix+"-duracao").value = "";
+  document.getElementById(prefix+"-comentario").value = "";
+  renderTable(tipo);
+}
+function deleteEntry(tipo, id){
+  if(!confirm("Remover este registro?")) return;
+  const arr = getEntries(tipo).filter(e=>e.id!==id);
+  setEntries(tipo, arr);
+  renderTable(tipo);
+}
+function editEntry(tipo, id){
+  const arr = getEntries(tipo);
+  const item = arr.find(e=>e.id===id);
+  if(!item) return;
+  const novoAno = prompt("Ano:", item.ano);
+  if(novoAno===null) return;
+  const novaSituacao = prompt("O que aconteceu:", item.situacao);
+  if(novaSituacao===null) return;
+  const novaDuracao = prompt("Duração aproximada:", item.duracao);
+  if(novaDuracao===null) return;
+  const novoComentario = prompt("Comentários:", item.comentario);
+  if(novoComentario===null) return;
+  item.ano = novoAno.trim();
+  item.situacao = novaSituacao.trim();
+  item.duracao = novaDuracao.trim();
+  item.comentario = novoComentario.trim();
+  setEntries(tipo, arr);
+  renderTable(tipo);
+}
+function sortedEntries(tipo){
+  const arr = getEntries(tipo).slice();
+  arr.sort((a,b)=>{
+    const ay = parseInt(a.ano) || 999999;
+    const by = parseInt(b.ano) || 999999;
+    return ay - by;
+  });
+  return arr;
+}
+function renderTable(tipo){
+  const wrap = document.getElementById(tipo==="hipomania" ? "hip-tabela-wrap" : "dep-tabela-wrap");
+  const arr = sortedEntries(tipo);
+  if(arr.length===0){
+    wrap.innerHTML = '<p class="empty-msg">Nenhum registro ainda. Adicione acima os períodos que você lembrar.</p>';
+    return;
+  }
+  const headClass = tipo==="hipomania" ? "" : "th-laranja";
+  let html = '<table><thead><tr class="'+(tipo==="depressao"?"depressao-row":"")+'">' +
+    '<th class="'+headClass+'">Ano</th><th class="'+headClass+'">O que aconteceu</th><th class="'+headClass+'">Duração</th><th class="'+headClass+'">Comentários</th><th class="'+headClass+'">Ações</th></tr></thead><tbody>';
+  arr.forEach(e=>{
+    html += "<tr>" +
+      "<td>"+escapeHtml(e.ano||"—")+"</td>" +
+      "<td>"+escapeHtml(e.situacao||"")+"</td>" +
+      "<td>"+escapeHtml(e.duracao||"—")+"</td>" +
+      "<td>"+escapeHtml(e.comentario||"—")+"</td>" +
+      "<td class='acoes no-print'>" +
+        "<button class='btn small outline' onclick=\"editEntry('"+tipo+"',"+e.id+")\">Editar</button> " +
+        "<button class='btn small laranja' onclick=\"deleteEntry('"+tipo+"',"+e.id+")\">Excluir</button>" +
+      "</td>" +
+    "</tr>";
+  });
+  html += "</tbody></table>";
+  wrap.innerHTML = html;
+}
+
+// ---------- Relatório ----------
+function renderRelatorio(){
+  const hip = sortedEntries("hipomania");
+  const dep = sortedEntries("depressao");
+  const hoje = new Date().toLocaleDateString("pt-BR");
+
+  function tabelaHtml(arr, cor){
+    if(arr.length===0) return "<p class='empty-msg'>Nenhum registro adicionado.</p>";
+    let h = "<table><thead><tr><th style='background:"+cor+"'>Ano</th><th style='background:"+cor+"'>O que aconteceu</th><th style='background:"+cor+"'>Duração</th><th style='background:"+cor+"'>Comentários</th></tr></thead><tbody>";
+    arr.forEach(e=>{
+      h += "<tr><td>"+escapeHtml(e.ano||"—")+"</td><td>"+escapeHtml(e.situacao||"")+"</td><td>"+escapeHtml(e.duracao||"—")+"</td><td>"+escapeHtml(e.comentario||"—")+"</td></tr>";
+    });
+    h += "</tbody></table>";
+    return h;
+  }
+
+  let comentariosHtml = "";
+  document.querySelectorAll("[data-comment-id]").forEach(el=>{
+    const id = el.dataset.commentId;
+    const val = localStorage.getItem(commentKey(id));
+    if(val){
+      const titulo = el.querySelector("h2") ? el.querySelector("h2").childNodes[0].textContent.trim() : id;
+      comentariosHtml += "<p><b>"+escapeHtml(titulo)+":</b> "+escapeHtml(val).replace(/\n/g,"<br>")+"</p>";
+    }
+  });
+  if(!comentariosHtml) comentariosHtml = "<p class='empty-msg'>Nenhum comentário adicionado no guia.</p>";
+
+  document.getElementById("relatorioConteudo").innerHTML = `
+    <div class="sec">
+      <h2 style="text-align:center; border-bottom:none;">Relatório de Histórico — Transtorno Bipolar Tipo 2</h2>
+      <p style="text-align:center; color:var(--texto-suave)">Gerado em ${hoje} — material preparado pelo(a) paciente para apoiar a avaliação psiquiátrica</p>
+    </div>
+    <div class="sec">
+      <h2 class="verde" style="color:var(--verde)">Possíveis episódios de HIPOMANIA (${hip.length})</h2>
+      ${tabelaHtml(hip, "#2E7D6B")}
+    </div>
+    <div class="sec">
+      <h2 class="laranja" style="color:var(--laranja)">Possíveis episódios de DEPRESSÃO (${dep.length})</h2>
+      ${tabelaHtml(dep, "#B3541E")}
+    </div>
+    <div class="sec">
+      <h2>Comentários feitos no guia</h2>
+      ${comentariosHtml}
+    </div>
+  `;
+}
+
+function escapeHtml(str){
+  return String(str)
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
+
+// ---------- Sincronização com GitHub ----------
+const SYNC_CONFIG_KEY = "bipolar_sync_config";
+
+function loadSyncConfig(){
+  try{
+    const cfg = JSON.parse(localStorage.getItem(SYNC_CONFIG_KEY) || "{}");
+    document.getElementById("gh-user").value = cfg.user || "";
+    document.getElementById("gh-repo").value = cfg.repo || "";
+    document.getElementById("gh-path").value = cfg.path || "data.json";
+    document.getElementById("gh-token").value = cfg.token || "";
+  }catch(e){}
+}
+function saveSyncConfig(){
+  const cfg = {
+    user: document.getElementById("gh-user").value.trim(),
+    repo: document.getElementById("gh-repo").value.trim(),
+    path: document.getElementById("gh-path").value.trim() || "data.json",
+    token: document.getElementById("gh-token").value.trim(),
+  };
+  localStorage.setItem(SYNC_CONFIG_KEY, JSON.stringify(cfg));
+  setSyncStatus("Configuração salva neste aparelho.", false);
+}
+function getSyncConfig(){
+  try{ return JSON.parse(localStorage.getItem(SYNC_CONFIG_KEY) || "{}"); }
+  catch(e){ return {}; }
+}
+function setSyncStatus(msg, isError){
+  const el = document.getElementById("sync-status");
+  el.textContent = msg;
+  el.style.color = isError ? "#B3541E" : "#2E7D6B";
+}
+function b64EncodeUnicode(str){
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m,p1)=>String.fromCharCode('0x'+p1)));
+}
+function b64DecodeUnicode(str){
+  return decodeURIComponent(atob(str).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+}
+function buildDataPayload(){
+  const data = {
+    atualizadoEm: new Date().toISOString(),
+    hipomania: getEntries("hipomania"),
+    depressao: getEntries("depressao"),
+    comentarios: {}
+  };
+  document.querySelectorAll("[data-comment-id]").forEach(el=>{
+    const id = el.dataset.commentId;
+    const val = localStorage.getItem(commentKey(id));
+    if(val) data.comentarios[id] = val;
+  });
+  return data;
+}
+async function pushToGithub(){
+  saveSyncConfig();
+  const cfg = getSyncConfig();
+  if(!cfg.user || !cfg.repo || !cfg.token){
+    setSyncStatus("Preencha usuário, repositório e token antes de enviar.", true);
+    return;
+  }
+  setSyncStatus("Enviando...", false);
+  const apiUrl = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${cfg.path}`;
+  try{
+    // 1) tenta obter o sha do arquivo atual (se já existir)
+    let sha = null;
+    const getResp = await fetch(apiUrl, {
+      headers: { "Authorization": "Bearer " + cfg.token, "Accept": "application/vnd.github+json" }
+    });
+    if(getResp.status===200){
+      const getJson = await getResp.json();
+      sha = getJson.sha;
+    } else if(getResp.status!==404){
+      const errJson = await getResp.json().catch(()=>({}));
+      throw new Error(errJson.message || ("Erro ao consultar arquivo (status "+getResp.status+")"));
+    }
+
+    const payload = buildDataPayload();
+    const content = b64EncodeUnicode(JSON.stringify(payload, null, 2));
+    const body = {
+      message: "Atualiza registros — " + new Date().toLocaleString("pt-BR"),
+      content: content,
+    };
+    if(sha) body.sha = sha;
+
+    const putResp = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Authorization": "Bearer " + cfg.token,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+    if(!putResp.ok){
+      const errJson = await putResp.json().catch(()=>({}));
+      throw new Error(errJson.message || ("Erro ao salvar (status "+putResp.status+")"));
+    }
+    setSyncStatus("✅ Enviado com sucesso para " + cfg.user + "/" + cfg.repo + "/" + cfg.path, false);
+  }catch(err){
+    setSyncStatus("❌ Falhou: " + err.message, true);
+  }
+}
+async function pullFromGithub(){
+  saveSyncConfig();
+  const cfg = getSyncConfig();
+  if(!cfg.user || !cfg.repo || !cfg.token){
+    setSyncStatus("Preencha usuário, repositório e token antes de buscar.", true);
+    return;
+  }
+  if(!confirm("Isso vai SUBSTITUIR os registros e comentários salvos neste aparelho pelos dados do GitHub. Continuar?")) return;
+  setSyncStatus("Buscando...", false);
+  const apiUrl = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${cfg.path}`;
+  try{
+    const resp = await fetch(apiUrl, {
+      headers: { "Authorization": "Bearer " + cfg.token, "Accept": "application/vnd.github+json" }
+    });
+    if(resp.status===404){
+      throw new Error("Ainda não existe nenhum arquivo salvo nesse repositório. Envie os dados primeiro em algum aparelho.");
+    }
+    if(!resp.ok){
+      const errJson = await resp.json().catch(()=>({}));
+      throw new Error(errJson.message || ("Erro (status "+resp.status+")"));
+    }
+    const json = await resp.json();
+    const decoded = b64DecodeUnicode(json.content.replace(/\n/g,""));
+    const data = JSON.parse(decoded);
+
+    if(Array.isArray(data.hipomania)) setEntries("hipomania", data.hipomania);
+    if(Array.isArray(data.depressao)) setEntries("depressao", data.depressao);
+    // limpa comentários antigos deste aparelho antes de aplicar os novos
+    document.querySelectorAll("[data-comment-id]").forEach(el=>{
+      localStorage.removeItem(commentKey(el.dataset.commentId));
+    });
+    if(data.comentarios){
+      Object.keys(data.comentarios).forEach(id=>{
+        localStorage.setItem(commentKey(id), data.comentarios[id]);
+      });
+    }
+    renderTable("hipomania");
+    renderTable("depressao");
+    initComments();
+    setSyncStatus("✅ Registros atualizados a partir do GitHub (última atualização: " + (data.atualizadoEm ? new Date(data.atualizadoEm).toLocaleString("pt-BR") : "—") + ")", false);
+  }catch(err){
+    setSyncStatus("❌ Falhou: " + err.message, true);
+  }
+}
+
+// ---------- Backup ----------
+function exportarJSON(){
+  const data = {
+    exportadoEm: new Date().toISOString(),
+    hipomania: getEntries("hipomania"),
+    depressao: getEntries("depressao"),
+    comentarios: {}
+  };
+  document.querySelectorAll("[data-comment-id]").forEach(el=>{
+    const id = el.dataset.commentId;
+    const val = localStorage.getItem(commentKey(id));
+    if(val) data.comentarios[id] = val;
+  });
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "bipolar_backup_" + new Date().toISOString().slice(0,10) + ".json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function importarJSON(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      const data = JSON.parse(e.target.result);
+      if(Array.isArray(data.hipomania)) setEntries("hipomania", data.hipomania);
+      if(Array.isArray(data.depressao)) setEntries("depressao", data.depressao);
+      if(data.comentarios){
+        Object.keys(data.comentarios).forEach(id=>{
+          localStorage.setItem(commentKey(id), data.comentarios[id]);
+        });
+      }
+      renderTable("hipomania");
+      renderTable("depressao");
+      initComments();
+      alert("Backup importado com sucesso!");
+    }catch(err){
+      alert("Não foi possível ler este arquivo. Verifique se é um backup válido (.json) gerado por esta ferramenta.");
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ---------- Inicialização ----------
+renderTable("hipomania");
+renderTable("depressao");
+initComments();
+</script>
+</body>
+</html>
